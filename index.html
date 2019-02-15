@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+
+  	<form>
+		<input name="name" value="Nikita">
+		<input name="age" value="21">
+		<input type="submit"> 
+	</form>
+
+	<ul class="listMessages">
+		
+	</ul>
+	
+	<script>
+		
+		const form = document.querySelector('form')
+		form.addEventListener('submit', submitHandler)
+
+
+		function submitHandler(e) {
+  			e.preventDefault();
+
+  			const name = this.querySelector('[name="name"]');
+  			const age = this.querySelector('[name="age"]');
+
+  			axios.post('/hello', {
+    			name: name.value,
+    			age: age.value
+  			})
+  			.then((response) => {
+    			console.log(response);
+    				let listContainer = document.querySelector('.listMessages');
+					let createLi = document.createElement("li");
+					createLi.innerHTML = response.data;
+	    			listContainer.appendChild(createLi);
+  			})
+  			.catch((error) => {
+    			console.log(error);
+  			});
+		};
+
+	</script>
+
+  </body>
+</html>
